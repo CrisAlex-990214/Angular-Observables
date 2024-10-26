@@ -1,0 +1,14 @@
+<p-carousel [value]="products" [numVisible]="5" showIndicators="false" showNavigators="false">
+    <ng-template let-product pTemplate="item">
+        <div class="card flex justify-content-center">
+            <p-card [header]="product.name" subheader="{{product.price | currency}}" [style]="{ width: '256px' }"
+                class="cursor-pointer" [routerLink]="product.id.toString()">
+                <ng-template pTemplate="header">
+                    <img alt="Card" [src]="product.imageUrl" />
+                </ng-template>
+            </p-card>
+        </div>
+    </ng-template>
+</p-carousel>
+
+<router-outlet></router-outlet>
