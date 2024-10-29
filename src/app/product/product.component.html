@@ -1,8 +1,8 @@
-<p-carousel [value]="products" [numVisible]="5" showIndicators="false" showNavigators="false">
+<p-carousel [value]="(products$ | async)!" [numVisible]="5" showIndicators="false" showNavigators="false">
     <ng-template let-product pTemplate="item">
         <div class="card flex justify-content-center">
             <p-card [header]="product.name" subheader="{{product.price | currency}}" [style]="{ width: '256px' }"
-                class="cursor-pointer" [routerLink]="product.id.toString()">
+                class="cursor-pointer" [routerLink]="product.id.toString()" (click)="selectedProduct = product">
                 <ng-template pTemplate="header">
                     <img alt="Card" [src]="product.imageUrl" />
                 </ng-template>
@@ -11,4 +11,7 @@
     </ng-template>
 </p-carousel>
 
-<router-outlet></router-outlet>
+<!-- <router-outlet (deactivate)="refreshList()"></router-outlet> -->
+
+<app-edit-product *ngIf="selectedProduct" [product]="selectedProduct"
+    (updatedProduct)="refreshList()"></app-edit-product>
